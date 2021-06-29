@@ -11,6 +11,5 @@ class StyleAttributeChecker:
         if len(styles) == 0:
             print("There are no tags that have the 'style' attribute (rule 4 is satisfied).")
         else:
-            for style in styles:
-                print(f"Found a tag that has the 'style' attribute (violates rule 4): '{style.tag_name}' tag")
-                self.count += 1
+            self.count = len(styles)
+            print(f"Found {str(len(styles))} tags that have the 'style' attribute (violates rule 4)")
