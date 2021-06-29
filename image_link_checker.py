@@ -4,7 +4,7 @@ class ImageLinkChecker:
         self.count = 0
 
     def check(self):
-        print("Checking if rule 1 is violated...")
+        print("\nChecking if rule 1 is violated...")
 
         image_formats = ['.apng', '.avif', '.gif', '.jpg', '.jpeg', '.jfif', '.pjpeg', '.pjp', '.png', '.svg', '.webp',
                          '.bmp', '.ico', '.cur', '.tif', '.tiff']

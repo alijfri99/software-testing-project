@@ -7,7 +7,7 @@ class DeprecatedAttributeChecker:
         self.count = 0
 
     def check(self):
-        print("Checking if rule 2 is violated...")
+        print("\nChecking if rule 2 is violated...")
         attribute_tags = AttributeTagCreator.create()
 
         for attribute_tag in attribute_tags:

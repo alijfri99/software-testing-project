@@ -4,7 +4,7 @@ class IdenticalLinkChecker:
         self.count = 0
 
     def check(self):
-        print("Checking if rule 5 is violated...")
+        print("\nChecking if rule 5 is violated...")
 
         links = self.driver.find_elements_by_xpath('//a')
 

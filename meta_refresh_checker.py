@@ -4,7 +4,7 @@ class MetaRefreshChecker:
         self.count = 0
 
     def check(self):
-        print("Checking if rule 3 is violated...")
+        print("\nChecking if rule 3 is violated...")
 
         metas = self.driver.find_elements_by_xpath("//meta[@http-equiv='refresh']")
         if len(metas) == 0:

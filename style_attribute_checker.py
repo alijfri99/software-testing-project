@@ -4,7 +4,7 @@ class StyleAttributeChecker:
         self.count = 0
 
     def check(self):
-        print("Checking if rule 4 is violated...")
+        print("\nChecking if rule 4 is violated...")
 
         styles = self.driver.find_elements_by_xpath('//*[@style]')
 
