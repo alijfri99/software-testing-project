@@ -13,7 +13,7 @@ class IdenticalLinkChecker:
                 continue
 
             for j in range(i + 1, len(links)):
-                if i == j or links[j].get_attribute('href') == None or links[j].text == "":
+                if links[j].get_attribute('href') == None or links[j].text == "":
                     continue
 
                 if links[i].text == links[j].text:
