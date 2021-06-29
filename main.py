@@ -6,10 +6,10 @@ from meta_refresh_checker import MetaRefreshChecker
 from style_attribute_checker import StyleAttributeChecker
 
 PATH = "C:\Program Files (x86)\chromedriver\chromedriver.exe"
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(PATH)
 
 # webpage = input("Please enter the web page address: ")
-webpage = 'file:/home/Arya/Work/PyCharm/project/software_testing_prj2/sl.html'
+webpage = 'https://pooya.um.ac.ir/gateway/PuyaAuthenticate.php'
 driver.get(webpage)
 
 image_link_checker = ImageLinkChecker(driver)
@@ -19,7 +19,7 @@ meta_refresh_checker = MetaRefreshChecker(driver)
 style_attribute_checker = StyleAttributeChecker(driver)
 
 # image_link_checker.check()
-# deprecated_attribute_checker.check()
+deprecated_attribute_checker.check()
 # identical_link_checker.check()
-#meta_refresh_checker.check()
-style_attribute_checker.check()
+# meta_refresh_checker.check()
+# style_attribute_checker.check()
