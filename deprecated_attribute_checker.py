@@ -1,4 +1,4 @@
-from attribute_tag_creator import AttributeTagCreator
+import pickle
 
 
 class DeprecatedAttributeChecker:
@@ -8,15 +8,17 @@ class DeprecatedAttributeChecker:
 
     def check(self):
         print("\nChecking if rule 2 is violated...")
-        attribute_tags = AttributeTagCreator.create()
+        attribute_tags_file = open('attribute_tags.bin', 'rb')
+        attribute_tags = pickle.load(attribute_tags_file)
+        attribute_tags_file.close()
 
-        for attribute_tag in attribute_tags:
-            self.check_attribute(attribute_tag[0], attribute_tag[1])
+        for attribute, tags in attribute_tags.items():
+            self.check_attribute(attribute, tags)
 
         if self.count == 0:
             print("There are no deprecated HTML5 attributes in this page (rule 2 is satisfied).")
 
-    def check_attribute(self, tags, attribute):
+    def check_attribute(self, attribute, tags):
         if attribute[0] in ['a', 'e', 'i', 'o', 'u']:
             article = 'an'
         else:

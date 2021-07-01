@@ -1,79 +1,46 @@
-class AttributeTagCreator:
-    @staticmethod
-    def create():
-        attribute_tags = list()
-        attribute_tags.append([['form'], 'accept'])
-        attribute_tags.append([['caption', 'col', 'div', 'embed', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'iframe'
-                                , 'img', 'input', 'legend', 'object', 'p', 'table', 'tbody', 'thead', 'tfoot', 'td'
-                                , 'th', 'tr'], 'align'])
-        attribute_tags.append([['body'], 'alink'])
-        attribute_tags.append([['iframe'], 'allowtransparency'])
-        attribute_tags.append([['object'], 'archive'])
-        attribute_tags.append([['td', 'th'], 'axis'])
-        attribute_tags.append([['body', 'table', 'thead', 'tbody', 'tfoot', 'tr', 'td', 'th'], 'background'])
-        attribute_tags.append([['body', 'table', 'td', 'th', 'tr'], 'bgcolor'])
-        attribute_tags.append([['object'], 'border'])
-        attribute_tags.append([['table'], 'bordercolor'])
-        attribute_tags.append([['table'], 'cellpadding'])
-        attribute_tags.append([['table'], 'cellspacing'])
-        attribute_tags.append([['col', 'tbody', 'thead', 'tfoot', 'td', 'th', 'tr'], 'char'])
-        attribute_tags.append([['col', 'tbody', 'thead', 'tfoot', 'td', 'th', 'tr'], 'charoff'])
-        attribute_tags.append([['a', 'link'], 'charset'])
-        attribute_tags.append([['object'], 'classid'])
-        attribute_tags.append([['br'], 'clear'])
-        attribute_tags.append([['object'], 'code'])
-        attribute_tags.append([['object'], 'codebase'])
-        attribute_tags.append([['object'], 'codetype'])
-        attribute_tags.append([['hr'], 'color'])
-        attribute_tags.append([['dl', 'ol', 'ul'], 'compact'])
-        attribute_tags.append([['a'], 'coords'])
-        attribute_tags.append([['a', 'applet', 'button', 'div', 'fieldset', 'frame', 'iframe', 'img', 'input', 'label'
-                                   , 'legend', 'marquee', 'object', 'param', 'select', 'span', 'textarea'], 'datafld'])
-        attribute_tags.append([['button', 'div', 'input', 'label', 'legend', 'marquee', 'object', 'option', 'select'
-                                , 'span', 'table'], 'dataformatas'])
-        attribute_tags.append([['table'], 'datapagesize'])
-        attribute_tags.append([['a', 'applet', 'button', 'div', 'frame', 'iframe', 'img', 'input', 'label'
-                                   , 'legend', 'marquee', 'object', 'option', 'select', 'span', 'textarea'], 'datasrc'])
-        attribute_tags.append([['object'], 'declare'])
-        attribute_tags.append([['script'], 'event'])
-        attribute_tags.append([['script'], 'for'])
-        attribute_tags.append([['table'], 'frame'])
-        attribute_tags.append([['iframe'], 'frameborder'])
-        attribute_tags.append([['td', 'th'], 'height'])
-        attribute_tags.append([['embed', 'iframe', 'img', 'input', 'object'], 'hspace'])
-        attribute_tags.append([['input'], 'ismap'])
-        attribute_tags.append([['body'], 'link'])
-        attribute_tags.append([['img'], 'lowsrc'])
-        attribute_tags.append([['body'], 'marginbottom'])
-        attribute_tags.append([['body', 'iframe'], 'marginheight'])
-        attribute_tags.append([['body'], 'marginleft'])
-        attribute_tags.append([['body'], 'marginright'])
-        attribute_tags.append([['body'], 'margintop'])
-        attribute_tags.append([['body', 'iframe'], 'marginwidth'])
-        attribute_tags.append([['a', 'link'], 'methods'])
-        attribute_tags.append([['embed', 'img', 'option'], 'name'])
-        attribute_tags.append([['area'], 'nohref'])
-        attribute_tags.append([['hr'], 'noshade'])
-        attribute_tags.append([['td', 'th'], 'nowrap'])
-        attribute_tags.append([['head'], 'profile'])
-        attribute_tags.append([['table'], 'rules'])
-        attribute_tags.append([['meta'], 'scheme'])
-        attribute_tags.append([['td'], 'scope'])
-        attribute_tags.append([['iframe'], 'scrolling'])
-        attribute_tags.append([['a'], 'shape'])
-        attribute_tags.append([['hr'], 'size'])
-        attribute_tags.append([['object'], 'standby'])
-        attribute_tags.append([['table'], 'summary'])
-        attribute_tags.append([['link'], 'target'])
-        attribute_tags.append([['body'], 'text'])
-        attribute_tags.append([['li', 'param', 'ul'], 'type'])
-        attribute_tags.append([['a', 'link'], 'urn'])
-        attribute_tags.append([['input'], 'usemap'])
-        attribute_tags.append([['col', 'tbody', 'thead', 'tfoot', 'td', 'th', 'tr'], 'valign'])
-        attribute_tags.append([['param'], 'valuetype'])
-        attribute_tags.append([['html'], 'version'])
-        attribute_tags.append([['body'], 'vlink'])
-        attribute_tags.append([['embed', 'iframe', 'img', 'input', 'object'], 'vspace'])
-        attribute_tags.append([['col', 'hr', 'pre', 'table', 'td', 'th'], 'width'])
+import pickle
 
-        return attribute_tags
+
+class AttributeTagCreator:
+    def __init__(self, driver):
+        self.driver = driver
+
+    def create(self):
+        self.driver.get('https://rules.sonarsource.com/html/type/Code%20Smell/RSPEC-1827')
+        attribute_tags = dict()
+        for i in range(2, 71):
+            tags_query = '//*[@id="root"]/div/div[2]/nav/main/div/section[2]/table/tbody/tr[' + str(i) + ']/td[2]/code'
+            tags = self.driver.find_elements_by_xpath(tags_query)
+
+            attribute_query = '//*[@id="root"]/div/div[2]/nav/main/div/section[2]/table/tbody/tr[' + str(i) \
+                              + ']/td[1]/code'
+            attribute = self.driver.find_element_by_xpath(attribute_query).text
+
+            attribute_tags[attribute] = list()
+            for tag in tags:
+                attribute_tags[attribute].append(tag.text)
+
+        print(attribute_tags)
+        attribute_tags_output = open('attribute_tags.bin', 'wb')
+        pickle.dump(attribute_tags, attribute_tags_output)
+        attribute_tags_output.close()
+
+    def process_attribute_tags(self):
+        attribute_tags_file = open('attribute_tags.bin', 'rb')
+        attribute_tags = pickle.load(attribute_tags_file)
+        attribute_tags_file.close()
+
+        attribute_tags['align'].remove('h1-h6')
+        attribute_tags['align'] += ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']
+        attribute_tags['border'].remove('border="0"')
+        attribute_tags['language'] = attribute_tags['langauge']
+        del attribute_tags['langauge']
+        attribute_tags['language'].remove('language="javascript"')
+        attribute_tags['name'].remove('name="[a\'s element id]"')
+
+        print(attribute_tags)
+        attribute_tags_output = open('attribute_tags.bin', 'wb')
+        pickle.dump(attribute_tags, attribute_tags_output)
+        attribute_tags_output.close()
+
+
