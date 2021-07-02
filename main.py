@@ -17,7 +17,7 @@ driver = webdriver.Chrome(PATH)
 # input()
 
 # webpage = input("Please enter the web page address: ")
-webpage = 'https://pooya.um.ac.ir/gateway/PuyaAuthenticate.php'
+webpage = 'file://C:/Users/Ali/IdeaProjects/software-testing-project/sample1.htm'
 driver.get(webpage)
 
 image_link_checker = ImageLinkChecker(driver)
@@ -28,9 +28,9 @@ style_attribute_checker = StyleAttributeChecker(driver)
 input_overlap_checker = InputOverlapChecker(driver)
 
 # image_link_checker.check()
-deprecated_attribute_checker.check()
+# deprecated_attribute_checker.check()
 # meta_refresh_checker.check()
 # style_attribute_checker.check()
-identical_link_checker.check()
+# identical_link_checker.check()
 
-# input_overlap_checker.check()
+input_overlap_checker.check()
