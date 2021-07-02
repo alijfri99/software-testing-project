@@ -4,6 +4,8 @@ class InputOverlapChecker:
         self.count = 0
 
     def check(self):
+        print("\nChecking if rule 6 is violated...")
+
         elements = self.find_elements()
         for i in range(len(elements)):
             for j in range(i + 1, len(elements)):

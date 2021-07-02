@@ -5,23 +5,22 @@ class IdenticalLinkChecker:
 
     def check(self):
         print("\nChecking if rule 5 is violated...")
-
         links = self.driver.find_elements_by_xpath('//a')
+        links_dict = dict()
 
-        for i in range(len(links)):
-            if links[i].get_attribute('href') == None or links[i].text == "":
-                continue
+        for link in links:
+            if link.text not in links_dict:
+                links_dict[link.text] = []
+            links_dict[link.text].append(link.get_attribute('href'))
 
-            for j in range(i + 1, len(links)):
-                if links[j].get_attribute('href') == None or links[j].text == "":
-                    continue
-
-                if links[i].text == links[j].text:
-                    if links[i].get_attribute('href') != links[j].get_attribute('href'):
-                        print("Links " + str(links[i].get_attribute('href')) + " (" + links[i].text + ") and " +
-                              str(links[j].get_attribute('href')) + " (" + links[j].text +
-                              ") have identical texts but point to different pages.")
+        for link_text in links_dict.keys():
+            for i in range(len(links_dict[link_text])):
+                for j in range(i + 1, len(links_dict[link_text])):
+                    if links_dict[link_text][i] != links_dict[link_text][j]:
+                        print('Links ' + str(links_dict[link_text][i]) + ' (' + link_text + ') and ' +
+                              str(links_dict[link_text][j]) +
+                              ' (' + link_text + ') have identical texts but point to different pages.')
                         self.count += 1
 
         if self.count == 0:
-            print("There are no identical links in this page that point to different pages (rule 5 is satisfied).")
+            print('There are no identical links in this page that point to different pages (rule 5 is satisfied).')

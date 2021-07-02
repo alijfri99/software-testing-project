@@ -9,15 +9,14 @@ from input_overlap_checker import InputOverlapChecker
 
 
 PATH = "C:\Program Files (x86)\chromedriver\chromedriver.exe"
-driver = webdriver.Chrome(PATH)
 
 # attribute_tag_creator = AttributeTagCreator(driver)
 # attribute_tag_creator.create()
 # attribute_tag_creator.process_attribute_tags()
 # input()
 
-# webpage = input("Please enter the web page address: ")
-webpage = 'file://C:/Users/Ali/IdeaProjects/software-testing-project/sample1.htm'
+webpage = input("Please enter the web page address: ")
+driver = webdriver.Chrome(PATH)
 driver.get(webpage)
 
 image_link_checker = ImageLinkChecker(driver)
@@ -27,10 +26,9 @@ meta_refresh_checker = MetaRefreshChecker(driver)
 style_attribute_checker = StyleAttributeChecker(driver)
 input_overlap_checker = InputOverlapChecker(driver)
 
-# image_link_checker.check()
-# deprecated_attribute_checker.check()
-# meta_refresh_checker.check()
-# style_attribute_checker.check()
-# identical_link_checker.check()
-
+image_link_checker.check()
+deprecated_attribute_checker.check()
+meta_refresh_checker.check()
+style_attribute_checker.check()
+identical_link_checker.check()
 input_overlap_checker.check()
